@@ -1,0 +1,177 @@
+/* ========== Global ========== */
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f8f9fa;
+  color: #1f2937;
+}
+
+/* ========== Header ========== */
+header.top {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header.top img {
+  height: 40px;
+}
+
+header.top h1 {
+  color: #7b2cbf;
+  font-size: 22px;
+  margin: 0;
+}
+
+header.top a {
+  margin-left: auto;
+  text-decoration: none;
+  color: #7b2cbf;
+  font-weight: bold;
+}
+
+/* ========== Home Page ========== */
+main.home {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #7b2cbf;
+}
+
+.card p {
+  color: #4b5563;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: #ff9f1c;
+  color: black;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ========== Translator & Chat shared layout ========== */
+main.app {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+.panel-container {
+  display: flex;
+  gap: 16px;
+}
+
+.panel {
+  background: white;
+  border-radius: 12px;
+  flex: 1;
+  padding: 16px;
+  min-height: 260px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+textarea, input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+textarea {
+  height: 120px;
+  resize: none;
+}
+
+.output, #messages {
+  font-size: 16px;
+  white-space: pre-wrap;
+}
+
+/* ========== Buttons ========== */
+.controls {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #7b2cbf;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button.secondary {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+/* ========== Chat specific ========== */
+#messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user {
+  align-self: flex-end;
+  background: #e0d4f7;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.bot {
+  align-self: flex-start;
+  background: #ecfeff;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* ========== Footer ========== */
+footer {
+  text-align: center;
+  margin: 40px 0;
+  color: #6b7280;
+  font-size: 13px;
+}

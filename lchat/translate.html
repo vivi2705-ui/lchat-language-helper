@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LChat – Language Translator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header>
+  <h1>LChat</h1>
+</header>
+
+<main class="app">
+
+  <div class="context">
+    <label>Context:</label>
+    <select id="context">
+      <option value="casual">Casual</option>
+      <option value="academic">Academic</option>
+      <option value="medical">Medical</option>
+    </select>
+  </div>
+
+  <div class="lang-bar">
+    <div>
+      <select id="fromLang">
+        <option value="auto">Detect language</option>
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="ar">Arabic</option>
+        <option value="bm">Bambara</option>
+        <option value="wo">Wolof</option>
+      </select>
+    </div>
+
+    <div>
+      <select id="toLang">
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="ar">Arabic</option>
+        <option value="bm">Bambara</option>
+        <option value="wo">Wolof</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="panel-container">
+
+    <!-- Input panel -->
+    <div class="panel">
+      <textarea id="input" placeholder="Enter text"></textarea>
+
+      <div class="controls">
+        <button onclick="translateText()">Translate</button>
+        <button class="secondary" onclick="startVoice()">🎤 Speak</button>
+      </div>
+    </div>
+
+    <!-- Output panel -->
+    <div class="panel">
+      <div id="output" class="output">Translation</div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  LChat – Student Translation Prototype
+</footer>
+
+<script>
+async function translateText(textFromVoice = null) {
+  try {
+    const input = textFromVoice || document.getElementById('input').value;
+    if (!input) return;
+
+    let from = document.getElementById('fromLang').value;
+    const to = document.getElementById('toLang').value;
+    const context = document.getElementById('context').value;
+
+    if (from === 'auto') {
+      from = (navigator.language || 'en').slice(0, 2);
+    }
+
+    const langpair = `${from}|${to}`;
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=${encodeURIComponent(langpair)}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+    const translated = data?.responseData?.translatedText || 'No translation';
+
+    document.getElementById('output').innerText =
+      `[${context.toUpperCase()}]\n\n${translated}`;
+
+    speak(translated, to);
+
+  } catch (err) {
+    document.getElementById('output').innerText =
+      `⚠️ Translation error`;
+  }
+}
+
+function startVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert('Speech recognition not supported.');
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  let from = document.getElementById('fromLang').value;
+  if (from === 'auto') from = (navigator.language || 'en').slice(0, 2);
+
+  const map = { en: 'en-US', fr: 'fr-FR', ar: 'ar-SA' };
+  recognition.lang = map[from] || 'en-US';
+  recognition.start();
+
+  recognition.onresult = (event) => {
+    translateText(event.results[0][0].transcript);
+  };
+}
+
+function speak(text, lang) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  const map = { en: 'en-US', fr: 'fr-FR', ar: 'ar-SA' };
+  utterance.lang = map[lang] || 'en-US';
+  speechSynthesis.speak(utterance);
+}
+</script>
+
+</body>
+</html>

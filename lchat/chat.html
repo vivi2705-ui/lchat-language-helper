@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LChat – AI Assistant</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top">
+  <img src="assets/LChat_Logo_Main.png" alt="LChat logo">
+  <h1>LChat AI</h1>
+  <a href="index.html">← Home</a>
+</header>
+
+<main class="app">
+
+  <div class="panel-container">
+
+    <!-- Messages -->
+    <div class="panel">
+      <div id="messages"></div>
+    </div>
+
+    <!-- Input -->
+    <div class="panel">
+      <input id="question" placeholder="Ask me anything..." />
+
+      <div class="controls">
+        <button onclick="send()">Send</button>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  LChat – AI Assistant
+</footer>
+
+<script src="js/chat.js"></script>
+</body>
+</html>
